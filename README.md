@@ -4,7 +4,8 @@ Contributors: Jose Antoine Leon Cordero & Ricardo Sanchez
 
 Notes:
 
-N/A
+1.  Inquire about usage of info/index.php. (Get GameInfo from current game or return possible game configurations).
+    Then, implement correctly.
 
 Requirements:
 
