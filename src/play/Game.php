@@ -15,4 +15,16 @@ class Game {
 
         $this->board = new Board();
     }
+
+	static function fromJsonString($json){
+		$obj = json_decode($json);
+		$strategy = $obj->{'strategy'};
+		$board = $obj->{'board'};
+		$game = new Game();
+		$game->board = Board::fromJson($board);
+		$name = $strategy->{'name'};
+		$game->strategy = $name::fromJson($strategy);
+		$game->strategy->board = $game->board;
+		return $game;
+	}
 }
