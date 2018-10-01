@@ -4,7 +4,17 @@ Contributors: Jose Antoine Leon Cordero & Ricardo Sanchez
 
 Notes:
 
-N/A
+- Info API is finalized.
+- New API is finalized??? Inquire about the Request URL & required request parameters.
+- Breaking down of URL is simple, however, should our web service just ultimately "echo" the data through JSON? 
+(inquire).
+
+
+- data/globals.php should hold all common data.
+- play/Board.php defines the board class.
+- play/FileIO.php defines file interaction functions.
+- play/Game.php defines a game instance.
+- play/MoveStrategy.php defines an abstract class "MoveStrategy", which is extended by the types of strategies allowed.
 
 Requirements:
 
