@@ -8,8 +8,45 @@ class Move {
     var $isWin;
     var $isDraw;
     var $win;
-} 
 
+	 function isWin($type)
+    {
+        $x = $playerMove->slot;
+        $y = 5;
+        $notDone = 1;
+        while (Matrix[$x][$y] === 0) {
+            $y --;
+        }
+        $i = 0;
+        while ($notDone || i < 4) {
+            $notDone = aux($x, $y, $type, $i);
+            $i++;
+        }
+        return done;
+    }
+
+	 private function aux($dx, $dy, $pendingName, $ind)
+    {
+        $count = 0;
+        while ($dx > 0 || $dy < 5) {
+            $dx --;
+            $dy ++;
+        }
+        while ($dx < 6 || $dy > 0) {
+            if (Matrix[$dx][$dy] == $pendingName) {
+                $count ++;
+            } else {
+                $count = 0;
+            }
+        }
+        if (count >= 4) {
+            setWinArray($dx, $dy, "NW");
+            return 1;
+        }
+        return 0;
+    }
+} 
+/*
 $playerMove = makePlayerMove($slot);
 if ($playerMove->isWin || $playerMove->isDraw) {
     echo createResponse($playerMove);
@@ -29,3 +66,4 @@ function createResponse($playerMove, $opponentMove = null)
     }
     return json_encode($result);
 }
+*/
