@@ -3,20 +3,22 @@ require_once '../globals/globals.php';
 require_once '../play/Game.php';
 require_once '../play/FileIO.php';
 
-$response = false;
+//checks if URL has strategy field
+if(!array_key_exists("strategy", $_GET)) {
+    echo json_encode(new invalidResponse("URL invalid."));
+    exit;
+}
 
-if(!array_key_exists(array_keys($strategy), $_GET)) {
-    if(array_key_exists("Unknown", $_GET))
-        $reason = "Strategy unknown.";
-    elseif(array_key_exists(null, $_GET))
-        $reason = "Strategy not specified.";
-
-    echo json_encode($response, $reason);
+//checks if strategy field in URL is valid strategy
+if($_GET["strategy"] == "") {
+    echo json_encode(new invalidResponse("Strategy not specified."));
+    exit;
+} elseif($_GET["strategy"] != "Smart" || $_GET["strategy"] != "Random") {
+    echo json_encode(new invalidResponse("Strategy unknown."));
     exit;
 }
 
 //creates game instance
-$response = true;
 $PID = uniqid();
 $game = new Game($_GET["strategy"]);
 
@@ -24,4 +26,21 @@ $game = new Game($_GET["strategy"]);
 createFile($PID);
 writeToFile($PID, json_encode($game));
 
-echo json_encode($response, $PID);
+echo json_encode(new validResponse($PID));
+class invalidResponse {
+    var $response = false;
+    var $reason;
+
+    function __construct($reason) {
+        $this->reason = $reason;
+    }
+}
+
+class validResponse {
+    var $response = true;
+    var $PID;
+
+    function __construct($PID) {
+        $this->PID = $PID;
+    }
+}
