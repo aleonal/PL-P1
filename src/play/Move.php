@@ -104,6 +104,44 @@ class Move {
         }
         return 0;
     }
+
+	function setWinArray($x, $y, $direction){
+    switch ($direction) {        
+        case "NW":
+            for ($i = 3; $i >= 0; $i--) {
+                $win[$i * 2] = $x;
+                $win[$i * 2 + 1] = $y;
+                $y--;
+                $x++;
+            }
+            break;
+        case "W":
+            for ($i = 3; $i >= 0; $i--) {
+                $win[$i * 2] = $x;
+                $win[$i * 2 + 1] = $y;                
+                $x++;
+            }
+            break;
+        case "SW":
+            for ($i = 3; $i >= 0; $i--) {
+                $win[$i * 2] = $x;
+                $win[$i * 2 + 1] = $y;
+                $x++;
+                $y++;
+            }
+            break;
+        case "S":
+            for ($i = 3; $i >= 0; $i--) {
+                $win[$i * 2] = $x;
+                $win[$i * 2 + 1] = $y;
+                $y++;
+            }
+            break;
+        default:
+            return 0;
+    }
+}
+
 }
 
 	
