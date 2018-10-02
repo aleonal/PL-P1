@@ -5,9 +5,7 @@ Contributors: Jose Antoine Leon Cordero & Ricardo Sanchez
 Notes:
 
 - Info API is finalized.
-- New API is finalized??? Inquire about the Request URL & required request parameters.
-- Breaking down of URL is simple, however, should our web service just ultimately "echo" the data through JSON? 
-(inquire).
+- New API is finalized.
 
 
 - data/globals.php should hold all common data.
