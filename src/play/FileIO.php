@@ -1,6 +1,6 @@
 <?php
 function writeToFile($PID, $data = null) {
-    $file = '../writable/instances/'.$PID;
+    $file = '../writable/instances/'.$PID.'.txt';
     if($data !== null) {
         $fp = fopen($file, 'a');
         fputs($fp, $data);
@@ -9,7 +9,7 @@ function writeToFile($PID, $data = null) {
 }
 
 function readFromFile($PID) {
-    $file = '../writable/instances/'.$PID;
+    $file = '../writable/instances/'.$PID.'.txt';
     $fp = fopen($file, 'r');
     $data = fgets($fp);
     fclose($fp);
@@ -17,7 +17,7 @@ function readFromFile($PID) {
 }
 
 function createFile($PID) {
-    $file = '../writable/instances/'.$PID;
+    $file = '../writable/instances/'.$PID.'.txt';
     $fp = fopen($file, 'w');
     fclose($fp);
 }
