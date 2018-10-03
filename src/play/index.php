@@ -23,6 +23,9 @@ class invalidResponse {
 
 //Once conditions are satisfied continue
 
+$playerMove = new Move();
+$opponentMove = new Move();
+
 $playerMove = makePlayerMove($slot);
 if ($playerMove->isWin || $playerMove->isDraw) {
     echo createResponse($playerMove);
