@@ -1,13 +1,11 @@
 <?php
 
-abstract class MoveStrategy {
-
+function smartStrategy($board) {
+    $slot = //result from calculations
+    return new Move($slot);
 }
 
-class RandomStrategy extends MoveStrategy {
-
-}
-
-class SmartStrategy extends MoveStrategy {
-
+function randomStrategy($board) {
+    $slot = //result from RNG
+    return new Move($slot);
 }

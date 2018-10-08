@@ -1,7 +1,5 @@
 <?php
 require_once '../play/MoveStrategy.php';
-require_once '../play/Board.php';
-
 
 class Game {
     var $strategy;

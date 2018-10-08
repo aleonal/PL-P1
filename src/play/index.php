@@ -1,6 +1,5 @@
 <?php
 require_once '../globals/globals.php';
-require_once '../play/Board.php';
 require_once '../play/FileIO.php';
 require_once '../play/Game.php';
 require_once '../play/Move.php';
@@ -34,9 +33,13 @@ if($_GET["move"] == "") {
 }
 
 $game = Game::fromJsonString(readFromFile($_GET["pid"]));
+if($game->strategy == "smart")
+    $playerMove = smartStrategy($game->board);
+else $playerMove = randomStrategy($game->board);
+
 
 //Places player move on board
-$playerMove = $board->makeMove($_GET["move"]);
+$playerMove = makeMove($_GET["move"]);
 
 
 
