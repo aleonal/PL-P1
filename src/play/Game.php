@@ -7,24 +7,30 @@ class Game {
     var $strategy;
     var $board;
 
-    function __construct($strategy) {
-        if($strategy === "Smart")
-            $this->strategy = new SmartStrategy();
-        else
-            $this->strategy = new RandomStrategy();
-
-        $this->board = new Board();
+    public function __construct() {
     }
 
-	static function fromJsonString($json){
-		$obj = json_decode($json);
-		$strategy = $obj->{'strategy'};
-		$board = $obj->{'board'};
-		$game = new Game();
-		$game->board = Board::fromJson($board);
-		$name = $strategy->{'name'};
-		$game->strategy = $name::fromJson($strategy);
-		$game->strategy->board = $game->board;
+    public static function newGame($strategy, $matrix = NULL) {
+        $instance = new self();
+
+        //instantiate strategy
+        if($strategy === "Smart")
+            $instance->strategy = new SmartStrategy();
+        else
+            $instance->strategy = new RandomStrategy();
+
+        //instantiate board
+        if(empty($matrix))
+            $instance->board = Board::withoutMatrix();
+        else
+            $instance->board = Board::withMatrix($matrix);
+
+        return $instance;
+    }
+
+    public static function fromJsonString($data){
+        $gameState = json_decode($data);
+        $game = Game::newGame($gameState["strategy"], $gameState["board"]["matrix"]);
 		return $game;
 	}
 }

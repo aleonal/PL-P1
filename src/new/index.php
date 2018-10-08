@@ -20,7 +20,7 @@ if($_GET["strategy"] == "") {
 
 //creates game instance
 $PID = uniqid();
-$game = new Game($_GET["strategy"]);
+$game = Game::newGame($_GET["strategy"]);
 
 //instantiates game file and writes game state to it
 createFile($PID);
@@ -31,7 +31,7 @@ class invalidResponse {
     var $response = false;
     var $reason;
 
-    function __construct($reason) {
+    public function __construct($reason) {
         $this->reason = $reason;
     }
 }
@@ -40,7 +40,7 @@ class validResponse {
     var $response = true;
     var $PID;
 
-    function __construct($PID) {
+    public function __construct($PID) {
         $this->PID = $PID;
     }
 }
