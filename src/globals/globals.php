@@ -1,5 +1,5 @@
 <?php
-    $strategy = array("Smart" => "SmartStrategy", "Random" => "RandomStrategy");
+    $strategy = array("smart", "random");
 
 
 class invalidResponse {

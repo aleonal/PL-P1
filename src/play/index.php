@@ -33,9 +33,16 @@ if($_GET["move"] == "") {
     exit;
 }
 
-//checks player move
+$game = Game::fromJsonString(readFromFile($_GET["pid"]));
+
+//Places player move on board
+$playerMove = $board->makeMove($_GET["move"]);
+
+
+
 $playerMove = new Move($_GET["move"]);
 if($playerMove->isWin) {
+
     //echo valid response [ach_move(slot, iswin, isdraw, row)]
 } elseif($playerMove->isDraw) {
     //echo valid response [ach_move(slot, iswin, isdraw)]

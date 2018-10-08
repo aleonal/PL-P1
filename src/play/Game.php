@@ -10,27 +10,31 @@ class Game {
     public function __construct() {
     }
 
-    public static function newGame($strategy, $matrix = NULL) {
+    public static function newGame($strategy, $board = NULL) {
         $instance = new self();
-
-        //instantiate strategy
-        if($strategy === "Smart")
-            $instance->strategy = new SmartStrategy();
-        else
-            $instance->strategy = new RandomStrategy();
+        $instance->strategy = $strategy;
 
         //instantiate board
-        if(empty($matrix))
-            $instance->board = Board::withoutMatrix();
-        else
-            $instance->board = Board::withMatrix($matrix);
+        if(empty($board)) {
+            for ($i = 0; $i < 6; $i++) {
+                for ($j = 0; $j < 7; $j++) {
+                    $instance->board[$i][$j] = 0;
+                }
+            }
+        } else {
+            for ($i = 0; $i < 6; $i++) {
+                for ($j = 0; $j < 7; $j++) {
+                    $instance->board[$i][$j] = $board[$i][$j];
+                }
+            }
+        }
 
         return $instance;
     }
 
     public static function fromJsonString($data){
         $gameState = json_decode($data);
-        $instance = Game::newGame($gameState["strategy"], $gameState["board"]["matrix"]);
+        $instance = Game::newGame($gameState["strategy"], $gameState["board"]);
 		return $instance;
 	}
 }
