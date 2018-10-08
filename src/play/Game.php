@@ -30,7 +30,7 @@ class Game {
 
     public static function fromJsonString($data){
         $gameState = json_decode($data);
-        $instance = Game::newGame$gameState["strategy"], $gameState["board"]["matrix"]);
+        $instance = Game::newGame($gameState["strategy"], $gameState["board"]["matrix"]);
 		return $instance;
 	}
 }
