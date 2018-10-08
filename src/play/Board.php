@@ -7,13 +7,7 @@ class Board {
 
 	public static function withMatrix($matrix) {
 	    $instance = new self();
-
-        for ($i = 0; $i < 6; $i++) {
-            for ($j = 0; $j < 7; $j++) {
-                $instance->matrix[$i][$j] = $matrix[$i][$j];
-            }
-        }
-
+	    $instance->setBoard($matrix);
         return $instance;
     }
 
@@ -27,4 +21,13 @@ class Board {
         }
         return $instance;
     }
+
+    public function setBoard($matrix) {
+        for ($i = 0; $i < 6; $i++) {
+            for ($j = 0; $j < 7; $j++) {
+                $this->matrix[$i][$j] = $matrix[$i][$j];
+            }
+        }
+    }
+
 }
