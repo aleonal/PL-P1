@@ -20,8 +20,20 @@ if($_GET["pid"] == "") {
     echo json_encode(new invalidResponse("PID invalid."));
     exit;
 } elseif(!fileFound($_GET["pid"])) {
-
+    echo json_encode(new invalidResponse("Unknown PID."));
+    exit;
 }
+
+//checks if move specified is valid
+if($_GET["move"] == "") {
+    echo json_encode(new invalidResponse("Move not specified."));
+    exit;
+} elseif((int)$_GET["move" < 0 || (int)$_GET["move"] > 6]) {
+    echo json_encode(new invalidResponse("Slot ".$_GET["move"]." is invalid."));
+    exit;
+}
+
+
 
 if ($_GET["move"] == "") {
     echo json_encode(new invalidResponse("Move not specified"));
