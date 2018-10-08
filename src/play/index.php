@@ -13,6 +13,15 @@ if(!array_key_exists("pid", $_GET) || !array_key_exists("move", $_GET)) {
 }
 
 //checks if PID specified is valid
+if($_GET["pid"] == "") {
+    echo json_encode(new invalidResponse("PID not specified."));
+    exit;
+} elseif(strlen($_GET["pid"]) != 13) {
+    echo json_encode(new invalidResponse("PID invalid."));
+    exit;
+} elseif(!fileFound($_GET["pid"])) {
+
+}
 
 if ($_GET["move"] == "") {
     echo json_encode(new invalidResponse("Move not specified"));
