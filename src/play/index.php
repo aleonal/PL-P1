@@ -33,22 +33,20 @@ if($_GET["move"] == "") {
     exit;
 }
 
-
-
-if ($_GET["move"] == "") {
-    echo json_encode(new invalidResponse("Move not specified"));
-    exit;
+//checks player move
+$playerMove = new Move($_GET["move"]);
+if($playerMove->isWin) {
+    //echo valid response [ach_move(slot, iswin, isdraw, row)]
+} elseif($playerMove->isDraw) {
+    //echo valid response [ach_move(slot, iswin, isdraw)]
 }
-//check if the move is outside boundaries: 0<move<6 (inclusive)
-elseif($_GET["move"] < 0 || $_GET["move"] > 6) {
-    echo json_encode(new invalidResponse("Invalid slot, " . $_GET["move"]));
-    exit;
-} 
+
+//computes computer move
 
 
-//Once conditions are satisfied continue
+//checks computer move
 
-$playerMove = new Move();
+
 $opponentMove = new Move();
 
 $playerMove = makePlayerMove($slot);
