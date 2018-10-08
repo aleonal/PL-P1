@@ -1,6 +1,18 @@
 <?php
+require_once '../globals/globals.php';
+require_once '../play/Board.php';
+require_once '../play/FileIO.php';
+require_once '../play/Game.php';
+require_once '../play/Move.php';
+require_once '../play/MoveStrategy.php';
 
-//insert the get the pid conditionals here
+//checks if URL has required data
+if(!array_key_exists("pid", $_GET) || !array_key_exists("move", $_GET)) {
+    echo json_encode(new invalidResponse("URL invalid."));
+    exit;
+}
+
+//checks if PID specified is valid
 
 if ($_GET["move"] == "") {
     echo json_encode(new invalidResponse("Move not specified"));
@@ -12,14 +24,6 @@ elseif($_GET["move"] < 0 || $_GET["move"] > 6) {
     exit;
 } 
 
-class invalidResponse {
-    var $response = false;
-    var $reason;
-    
-    function __construct($reason) {
-        $this->reason = $reason;
-    }
-}
 
 //Once conditions are satisfied continue
 
@@ -45,13 +49,4 @@ function createResponse($playerMove, $opponentMove = null)
         $result["move"] = $opponentMove;
     }
     return json_encode($result);
-}
-
-class invalidResponse {
-    var $response = false;
-    var $reason;
-    
-    function __construct($reason) {
-        $this->reason = $reason;
-    }
 }

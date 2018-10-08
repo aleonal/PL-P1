@@ -3,7 +3,7 @@ require_once '../globals/globals.php';
 require_once '../play/Game.php';
 require_once '../play/FileIO.php';
 
-//checks if URL has strategy field
+//checks if URL has required data
 if(!array_key_exists("strategy", $_GET)) {
     echo json_encode(new invalidResponse("URL invalid."));
     exit;
@@ -26,21 +26,6 @@ $game = Game::newGame($_GET["strategy"]);
 createFile($PID);
 writeToFile($PID, json_encode($game));
 
-echo json_encode(new validResponse($PID));
-class invalidResponse {
-    var $response = false;
-    var $reason;
+echo json_encode(new validNewResponse($PID));
 
-    public function __construct($reason) {
-        $this->reason = $reason;
-    }
-}
 
-class validResponse {
-    var $response = true;
-    var $PID;
-
-    public function __construct($PID) {
-        $this->PID = $PID;
-    }
-}
