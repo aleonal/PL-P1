@@ -32,7 +32,7 @@
         function isWin(&$Matrix,$type){
             $x = $playerMove->slot;
             $y = 5;
-            $notDone = 1;
+            $notDone = TRUE;
             while ($Matrix[$x][$y] == 0) {
                 $y --;
             }
