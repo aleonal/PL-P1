@@ -38,7 +38,7 @@
             $x = $slot;
             $y = 5;
             $notDone = TRUE;
-            while ($Matrix[$x][$y] == 0) {
+            while ($Matrix[$y][$x] !== 0 ) {
                 $y --;
             }
             $i = 0;

@@ -30,7 +30,7 @@ function createFile($PID) {
 function fileFound($PID) {
     $files = scandir('../writable/');
     for($i = 0; $i < count($files); $i++) {
-        if($PID.'txt' === $files[$i]) return true;
+        if($PID.'.txt' === $files[$i]) return true;
     }
 
     return false;
