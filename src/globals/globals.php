@@ -12,10 +12,10 @@ class invalidResponse {
 
 class validNewResponse {
     var $response = true;
-    var $PID;
+    var $pid;
 
-    public function __construct($PID) {
-        $this->PID = $PID;
+    public function __construct($pid) {
+        $this->pid = $pid;
     }
 }
 
