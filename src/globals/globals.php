@@ -1,7 +1,6 @@
 <?php
     $strategy = array("smart", "random");
 
-
 class invalidResponse {
     var $response = false;
     var $reason;
@@ -21,27 +20,23 @@ class validNewResponse {
 }
 
 class playerOnlyResponse {
+    var $response = true;
     var $ack_move;
 
-    public function __construct($move, $winningRow = NULL) {
-        if($move->isWin)
-            $this->ack_move = array($move->slot, $move->isWin, $move->isDraw, $winningRow);
-        else $this->ack_move = array($move->slot, $move->isWin, $move->isDraw);
+    public function __construct($move) {
+        $this->ack_move = array($move);
     }
 }
 
 class defaultResponse {
+    var $response = true;
     var $ack_move;
     var $move;
 
-    public function __construct($move, $computerMove, $winningRow = NULL) {
-        if($computerMove->isWin) {
-            $this->ack_move = array($move->slot, $move->isWin, $move->isDraw);
-            $this->move = array($computerMove->slot, $computerMove->isWin, $computerMove->isDraw, $winningRow);
-        } else {
-            $this->ack_move = array($move->slot, $move->isWin, $move->isDraw);
-            $this->move = array($computerMove->slot, $computerMove->isWin, $computerMove->isDraw);
-        }
+    public function __construct($move, $computerMove) {
+        $this->ack_move = array($move);
+        $this->move = array($computerMove);
     }
 }
 
+//check if JSON comes out right

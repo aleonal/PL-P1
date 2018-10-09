@@ -33,49 +33,20 @@ if($_GET["move"] == "") {
 }
 
 $game = Game::fromJsonString(readFromFile($_GET["pid"]));
+$playerMove = new Move($_GET["move"], $game->board);
+writeToFile($_GET["pid"], json_encode($game));
+
+//determines if player move was win or draw
+if($playerMove->isWin || $playerMove->isDraw) {
+    echo json_encode(new playerOnlyResponse($playerMove));
+    exit;
+}
+
+//calculates computer move
 if($game->strategy == "smart")
-    $playerMove = smartStrategy($game->board);
-else $playerMove = randomStrategy($game->board);
+    $computerMove = smartStrategy($game->board);
+else $computerMove = randomStrategy($game->board);
+writeToFile($_GET["pid"], json_encode($game));
 
-
-//Places player move on board
-$playerMove = makeMove($_GET["move"]);
-
-
-
-$playerMove = new Move($_GET["move"]);
-if($playerMove->isWin) {
-
-    //echo valid response [ach_move(slot, iswin, isdraw, row)]
-} elseif($playerMove->isDraw) {
-    //echo valid response [ach_move(slot, iswin, isdraw)]
-}
-
-//computes computer move
-
-
-//checks computer move
-
-
-$opponentMove = new Move();
-
-$playerMove = makePlayerMove($slot);
-if ($playerMove->isWin || $playerMove->isDraw) {
-    echo createResponse($playerMove);
-    exit();
-}
-
-$opponentMove = makeOpponentMove();
-echo createResponse($playerMove, $opponentMove);
-
-function createResponse($playerMove, $opponentMove = null)
-{
-    $result = array(
-        "response" => true,
-        "ack_move" => $playerMove
-    );
-    if ($opponentMove != null) {
-        $result["move"] = $opponentMove;
-    }
-    return json_encode($result);
-}
+//returns result
+echo json_encode(new defaultResponse($playerMove, $computerMove));
