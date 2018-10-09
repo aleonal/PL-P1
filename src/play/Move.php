@@ -5,40 +5,45 @@
         var $slot;
         var $isWin;
         var $isDraw;
-        var $win;
+        var $row;
         
         
-        function __construct(){
-            $this->slot = -1;
-            $this->isWin = FALSE;
-            $this->isDraw = FALSE;
-            $this->row = array(array());
+        function __construct($slot, &$board, $condition = NULL){
+            $this->slot = $slot;
+            $this->row = array();
+
+            //player move
+            if(!$condition) {
+                $this->isWin = $this->isWin($slot, $board, 1);
+                $this->placeMove($board, $this->slot, 1);
+            } else { //computer move
+                $this->isWin = $this->isWin($slot, $board, -1);
+                $this->placeMove($board, $this->slot, -1);
+            }
+
+            $this->isDraw = $this->isDraw($board);
+
         }
-        
-        function __construct($val, &$board){
-            $this->row = array(array());
-            $this->slot = $val;
-            $this->isWin = isWin($board,1);
-            $this->isDraw = isDraw();
+
+        private function placeMove(&$board, $slot, $type) {
+            $i = 0;
+
+            while($board[$i][$slot] === 0) {
+                $i += 1;
+            }
+            $board[$i - 1][$slot] = $type;
         }
-        
-        function __construct($val, &$board, $cond){
-            $this->row = array(array());
-            $this->slot = $val;
-            $this->isWin = isWin($board,-1);
-            $this->isDraw = isDraw();
-        }
-        
-        function isWin(&$Matrix,$type){
-            $x = $playerMove->slot;
+
+        function isWin($slot, &$Matrix, $type){
+            $x = $slot;
             $y = 5;
             $notDone = TRUE;
             while ($Matrix[$x][$y] == 0) {
                 $y --;
             }
             $i = 0;
-            while ($notDone || i < 4) {
-                $notDone = aux($x, $y, $Matrix, $type, $i);
+            while ($notDone || $i < 4) {
+                $notDone = $this->aux($x, $y, $Matrix, $type, $i);
                 $i++;
             }
             return $notDone;
@@ -62,7 +67,7 @@
                         $dy --;
                     }
                     if ($count >= 4) {
-                        setWinArray($dx, $dy, "NW");
+                        $this->setWinArray($dx, $dy, "NW");
                         return TRUE;
                     }
                     break;
@@ -79,7 +84,7 @@
                         $dx ++;
                     }
                     if ($count >= 4) {
-                        setWinArray($dx, $dy, "W");
+                        $this->setWinArray($dx, $dy, "W");
                         return TRUE;
                     }
                     break;
@@ -98,7 +103,7 @@
                         $dy ++;
                     }
                     if ($count >= 4) {
-                        setWinArray($dx, $dy, "SW");
+                        $this->setWinArray($dx, $dy, "SW");
                         return TRUE;
                     }
                     break;
@@ -115,7 +120,7 @@
                         $dy ++;
                     }
                     if ($count >= 4) {
-                        setWinArray($dx, $dy, "S");
+                        $this->setWinArray($dx, $dy, "S");
                         return TRUE;
                     }
                     break;
@@ -158,9 +163,17 @@
                     }
                     break;
                 default:
-                    return 0;
+                    return;
             }
         }
-        
+
+        function isDraw($board){
+            for($i=0;$i<7;$i++){
+                if($board[$i][5] == 0) {
+                    return FALSE;
+                }
+            }
+            return TRUE;
+        }
     }
     
