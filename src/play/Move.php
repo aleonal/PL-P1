@@ -29,7 +29,7 @@
             $this->isDraw = isDraw();
         }
         
-        function isWin(&$board,$type){
+        function isWin(&$Matrix,$type){
             $x = $playerMove->slot;
             $y = 5;
             $notDone = 1;
@@ -38,13 +38,13 @@
             }
             $i = 0;
             while ($notDone || i < 4) {
-                $notDone = aux($x, $y, $type, $i);
+                $notDone = aux($x, $y, $Matrix, $type, $i);
                 $i++;
             }
             return $notDone;
         }
         
-        private function aux($dx, $dy, $pendingName, $ind) {
+        private function aux($dx, $dy, &$Matrix, $pendingName, $ind) {
             $count = 0;
             switch ($ind) {
                 case 1:
