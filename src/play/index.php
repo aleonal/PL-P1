@@ -27,11 +27,10 @@ if($_GET["pid"] == "") {
 if($_GET["move"] == "") {
     echo json_encode(new invalidResponse("Move not specified."));
     exit;
-} elseif((int)$_GET["move" < 0 || (int)$_GET["move"] > 6]) {
+} elseif((int)$_GET["move"] < 0 || (int)$_GET["move"] > 6) {
     echo json_encode(new invalidResponse("Slot ".$_GET["move"]." is invalid."));
     exit;
 }
-
 $game = Game::fromJsonString(readFromFile($_GET["pid"]));
 $playerMove = new Move($_GET["move"], $game->board);
 writeToFile($_GET["pid"], json_encode($game));

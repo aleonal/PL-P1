@@ -16,11 +16,11 @@
 
             //player move
             if(!$condition) {
-                $this->isWin = $this->isWin($slot, $board, 1);
                 $this->placeMove($board, $this->slot, 1);
+                $this->isWin = $this->isWin($slot, $board, 1);
             } else { //computer move
-                $this->isWin = $this->isWin($slot, $board, -1);
                 $this->placeMove($board, $this->slot, -1);
+                $this->isWin = $this->isWin($slot, $board, -1);
             }
 
             $this->isDraw = $this->isDraw($board);
@@ -37,9 +37,6 @@
         }
 
         function isWin($slot, &$Matrix, $type){
-            $x = $slot;
-            $y = 5;
-            $notDone = TRUE;
 
             //checks for win in horizontal
             for($i = 0; $i < 6; $i++) {
@@ -68,6 +65,66 @@
             }
 
             //checks for diagonal (fill)
+            for($i = 0; $i < 6; $i++) {
+                for($j = 0; $j < 7; $j++) {
+                    $counter = 0;
+                    $dx = $j + 1;
+                    $dy = $i - 1;
+
+                    //top right
+                    while($Matrix[$dy][$dx] == $type && $dx >= 0 && $dx < 7 && $dy >= 0 && $dy < 6) {
+                        $counter += 1;
+                        if($Matrix[$dy - 1][$dx + 1] == $type) {
+                            $dx += 1;
+                            $dy -= 1;
+                        } else break;
+                        if($counter == 4)
+                            return TRUE;
+                    }
+                    $counter = 0;
+                    $dx = $j - 1;
+                    $dy = $i -1;
+
+                    //top left
+                    while($Matrix[$dy][$dx] == $type && $dx >= 0 && $dx < 7 && $dy >= 0 && $dy < 6) {
+                        $counter += 1;
+                        if($Matrix[$dy - 1][$dx - 1] == $type) {
+                            $dx -= 1;
+                            $dy -= 1;
+                        } else break;
+                        if($counter == 4)
+                            return TRUE;
+                    }
+                    $counter = 0;
+                    $dx = $j - 1;
+                    $dy = $i + 1;
+
+                    //bottom left
+                    while($Matrix[$dy][$dx] == $type && $dx >= 0 && $dx < 7 && $dy >= 0 && $dy < 6) {
+                        $counter += 1;
+                        if($Matrix[$dy + 1][$dx - 1] == $type) {
+                            $dx -= 1;
+                            $dy += 1;
+                        }else break;
+                        if($counter == 4)
+                            return TRUE;
+                    }
+                    $counter = 0;
+                    $dx = $j + 1;
+                    $dy = $i + 1;
+
+                    //bottom right
+                    while($Matrix[$dy][$dx] == $type && $dx >= 0 && $dx < 7 && $dy >= 0 && $dy < 6) {
+                        $counter += 1;
+                        if($Matrix[$dy + 1][$dx + 1] == $type) {
+                            $dx += 1;
+                            $dy += 1;
+                        } else break;
+                        if($counter == 4)
+                            return TRUE;
+                    }
+                }
+            }
             return FALSE;
         }
         
