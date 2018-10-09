@@ -1,4 +1,6 @@
 <?php
+//Antoine Leon
+//Ricardo Sanchez
 require_once '../play/Move.php';
 
 function smartStrategy(&$board){
