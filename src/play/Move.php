@@ -40,95 +40,34 @@
             $x = $slot;
             $y = 5;
             $notDone = TRUE;
-            while ($Matrix[$y][$x] !== 0 ) {
-                $y --;
+
+            //checks for win in horizontal
+            for($i = 0; $i < 6; $i++) {
+                $counter = 0;
+                for($j = 0; $j < 7; $j++) {
+                    if($Matrix[$i][$j] = $type) {
+                        $counter++;
+                    } else $counter = 0;
+
+                    if($counter == 4)
+                        return TRUE;
+                }
             }
-            $i = 0;
-            while ($notDone || $i < 4) {
-                $notDone = $this->aux($x, $y, $Matrix, $type, $i);
-                $i++;
+
+            //checks for win in vertical
+            for($i = 0; $i < 6; $i++) {
+                $counter = 0;
+                for($j = 0; $j < 7; $j++) {
+                    if($Matrix[$j][$i] = $type) {
+                        $counter++;
+                    } else $counter = 0;
+
+                    if($counter == 4)
+                        return TRUE;
+                }
             }
-            return $notDone;
-        }
-        
-        private function aux($dx, $dy, &$Matrix, $pendingName, $ind) {
-            $count = 0;
-            switch ($ind) {
-                case 1:
-                    while ($dx > 0 || $dy < 5) {
-                        $dx --;
-                        $dy ++;
-                    }
-                    while ($dx < 6 || $dy > 0) {
-                        if ($Matrix[$dx][$dy] == $pendingName) {
-                            $count ++;
-                        } else {
-                            $count = 0;
-                        }
-                        $dx ++;
-                        $dy --;
-                    }
-                    if ($count >= 4) {
-                        $this->setWinArray($dx, $dy, "NW");
-                        return TRUE;
-                    }
-                    break;
-                case 2:
-                    while ($dx > 0) {
-                        $dx --;
-                    }
-                    while ($dx < 6) {
-                        if ($Matrix[$dx][$dy] == $pendingName) {
-                            $count ++;
-                        } else {
-                            $count = 0;
-                        }
-                        $dx ++;
-                    }
-                    if ($count >= 4) {
-                        $this->setWinArray($dx, $dy, "W");
-                        return TRUE;
-                    }
-                    break;
-                case 3:
-                    while ($dx > 0 || $dy > 0) {
-                        $dx --;
-                        $dy --;
-                    }
-                    while ($dx < 6 || $dy < 5) {
-                        if ($Matrix[$dx][$dy] == $pendingName) {
-                            $count ++;
-                        } else {
-                            $count = 0;
-                        }
-                        $dx ++;
-                        $dy ++;
-                    }
-                    if ($count >= 4) {
-                        $this->setWinArray($dx, $dy, "SW");
-                        return TRUE;
-                    }
-                    break;
-                case 4:
-                    while ($dy > 0) {
-                        $dy --;
-                    }
-                    while ($dy < 5) {
-                        if ($Matrix[$dx][$dy] == $pendingName) {
-                            $count ++;
-                        } else {
-                            $count = 0;
-                        }
-                        $dy ++;
-                    }
-                    if ($count >= 4) {
-                        $this->setWinArray($dx, $dy, "S");
-                        return TRUE;
-                    }
-                    break;
-                default:
-                    return FALSE;
-            }
+
+            //checks for diagonal (fill)
             return FALSE;
         }
         
