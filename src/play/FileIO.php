@@ -14,7 +14,6 @@ function readFromFile($PID) {
     while(!feof($fp)) {
         $data = fgets($fp);
         fgets($fp);
-        echo "Hello";
     }
 
     return $data;

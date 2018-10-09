@@ -45,7 +45,7 @@
             for($i = 0; $i < 6; $i++) {
                 $counter = 0;
                 for($j = 0; $j < 7; $j++) {
-                    if($Matrix[$i][$j] = $type) {
+                    if($Matrix[$i][$j] == $type) {
                         $counter++;
                     } else $counter = 0;
 
@@ -58,7 +58,7 @@
             for($i = 0; $i < 6; $i++) {
                 $counter = 0;
                 for($j = 0; $j < 7; $j++) {
-                    if($Matrix[$j][$i] = $type) {
+                    if($Matrix[$j][$i] == $type) {
                         $counter++;
                     } else $counter = 0;
 
