@@ -1,7 +1,7 @@
 <?php
     require '../globals/globals.php';
 
-    $info = new GameInfo(7, 6, $strategy);
+    $info = new GameInfo(7, 6, $strategies);
     echo json_encode($info);
 
 class GameInfo {

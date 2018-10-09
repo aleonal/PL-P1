@@ -1,5 +1,5 @@
 <?php
-    $strategy = array("smart", "random");
+    $strategies = array("smart", "random");
 
 class invalidResponse {
     var $response = false;
