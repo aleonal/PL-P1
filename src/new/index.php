@@ -9,11 +9,12 @@ if(!array_key_exists("strategy", $_GET)) {
     exit;
 }
 
+
 //checks if strategy field in URL is valid strategy
-if($_GET["strategy"] == "") {
+if($_GET["strategy"] == NULL) {
     echo json_encode(new invalidResponse("Strategy not specified."));
     exit;
-} elseif($_GET["strategy"] != "smart" || $_GET["strategy"] != "random") {
+} elseif($_GET["strategy"] !== "smart" && $_GET["strategy"] !== "random") {
     echo json_encode(new invalidResponse("Strategy unknown."));
     exit;
 }
