@@ -1,23 +1,28 @@
 <?php
 function writeToFile($PID, $data = null) {
-    $file = '../writable/instances/'.$PID.'.txt';
-    if($data !== null) {
-        $fp = fopen($file, 'a');
-        fputs($fp, $data);
-        fclose($fp);
-    }
+    $file = '../writable/'.$PID.'.txt';
+    $fp = fopen($file, 'a');
+    fputs($fp, $data);
+    fclose($fp);
 }
 
 function readFromFile($PID) {
-    $file = '../writable/instances/'.$PID.'.txt';
+    $file = '../writable/'.$PID.'.txt';
     $fp = fopen($file, 'r');
     $data = fgets($fp);
-    fclose($fp);
-    return $data;
+
+    while(!feof($fp)) {
+        if(fgets($fp) === NULL) {
+            fclose($fp);
+            return $data;
+        } else {
+            $data = fgets($fp);
+        }
+    }
 }
 
 function createFile($PID) {
-    $file = '../writable/instances/'.$PID.'.txt';
+    $file = '../writable/'.$PID.'.txt';
     $fp = fopen($file, 'w');
     fclose($fp);
 }
