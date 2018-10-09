@@ -38,5 +38,3 @@ class defaultResponse {
         $this->move = $computerMove;
     }
 }
-
-//check if JSON comes out right

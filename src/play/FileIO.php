@@ -3,22 +3,21 @@ function writeToFile($PID, $data = null) {
     $file = '../writable/'.$PID.'.txt';
     $fp = fopen($file, 'a');
     fputs($fp, $data);
+    fputs($fp, "\n");
     fclose($fp);
 }
 
 function readFromFile($PID) {
     $file = '../writable/'.$PID.'.txt';
     $fp = fopen($file, 'r');
-    $data = fgets($fp);
-
+    $data = "";
     while(!feof($fp)) {
-        if(fgets($fp) === NULL) {
-            fclose($fp);
-            return $data;
-        } else {
-            $data = fgets($fp);
-        }
+        $data = fgets($fp);
+        fgets($fp);
+        echo "Hello";
     }
+
+    return $data;
 }
 
 function createFile($PID) {
