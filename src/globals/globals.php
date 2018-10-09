@@ -24,7 +24,7 @@ class playerOnlyResponse {
     var $ack_move;
 
     public function __construct($move) {
-        $this->ack_move = array($move);
+        $this->ack_move = $move;
     }
 }
 
@@ -34,8 +34,8 @@ class defaultResponse {
     var $move;
 
     public function __construct($move, $computerMove) {
-        $this->ack_move = array($move);
-        $this->move = array($computerMove);
+        $this->ack_move = $move;
+        $this->move = $computerMove;
     }
 }
 
