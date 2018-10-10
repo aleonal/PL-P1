@@ -7,12 +7,8 @@ Notes:
 - Info API is finalized.
 - New API is finalized.
 
-
-- data/globals.php should hold all common data.
-- play/Board.php defines the board class.
-- play/FileIO.php defines file interaction functions.
-- play/Game.php defines a game instance.
-- play/MoveStrategy.php defines an abstract class "MoveStrategy", which is extended by the types of strategies allowed.
+- Play API does not determine a diagonal-row win correctly.
+- Array of winning positions is not populated.
 
 Requirements:
 
