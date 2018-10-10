@@ -9,6 +9,7 @@ Notes:
 
 - Play API does not determine a diagonal-row win correctly.
 - Array of winning positions is not populated.
+- Smart strategy is not so smart (does not detect winning/losing row).
 
 Requirements:
 
