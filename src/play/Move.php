@@ -17,14 +17,13 @@
             //player move
             if(!$condition) {
                 $this->placeMove($board, $this->slot, 1);
-                $this->isWin = $this->isWin($slot, $board, 1);
+                $this->isWin($board, 1);
             } else { //computer move
                 $this->placeMove($board, $this->slot, -1);
-                $this->isWin = $this->isWin($slot, $board, -1);
+                $this->isWin($board, -1);
             }
 
             $this->isDraw = $this->isDraw($board);
-
         }
 
         private function placeMove(&$board, $slot, $type) {
@@ -36,8 +35,7 @@
             $board[$i - 1][$slot] = $type;
         }
 
-        function isWin($slot, &$Matrix, $type){
-
+        function isWin($Matrix, $type){
             //checks for win in horizontal
             for($i = 0; $i < 6; $i++) {
                 $counter = 0;
@@ -46,8 +44,11 @@
                         $counter++;
                     } else $counter = 0;
 
-                    if($counter == 4)
-                        return TRUE;
+                    if($counter == 4) {
+                        $this->isWin = TRUE;
+                        $this->setWinArray(array($j-3, $j-2, $j-1, $j), $i, "E");
+                        return true;
+                    }
                 }
             }
 
@@ -59,109 +60,110 @@
                         $counter++;
                     } else $counter = 0;
 
-                    if($counter == 4)
-                        return TRUE;
+                    if($counter == 4) {
+                        $this->isWin = TRUE;
+                        $this->setWinArray(array($i-3, $i-2, $i-1, $i), $j, "S");
+                        return true;
+                    }
+
                 }
             }
 
-            //checks for diagonal (fill)
+            //checks for diagonal
             for($i = 0; $i < 6; $i++) {
                 for($j = 0; $j < 7; $j++) {
-                    $counter = 0;
-                    $dx = $j + 1;
-                    $dy = $i - 1;
+                    $counter = 1;
+                    $dx = $j;
+                    $dy = $i;
 
                     //top right
-                    while($Matrix[$dy][$dx] == $type && $dx >= 0 && $dx < 7 && $dy >= 0 && $dy < 6) {
-                        $counter += 1;
+                    while($Matrix[$dy][$dx] == $type) {
                         if($Matrix[$dy - 1][$dx + 1] == $type) {
-                            $dx += 1;
-                            $dy -= 1;
+                            $counter += 1;
+                            $dx = $j + 1;
+                            $dy = $i - 1;
+
                         } else break;
-                        if($counter == 4)
-                            return TRUE;
+
+                        if($counter == 4) {
+                            $this->setWinArray($Matrix, $type, $j, "NE");
+                            return true;
+                        }
                     }
                     $counter = 0;
-                    $dx = $j - 1;
-                    $dy = $i -1;
+                    $dx = $j;
+                    $dy = $i;
 
                     //top left
-                    while($Matrix[$dy][$dx] == $type && $dx >= 0 && $dx < 7 && $dy >= 0 && $dy < 6) {
-                        $counter += 1;
+                    while($Matrix[$dy][$dx] == $type) {
                         if($Matrix[$dy - 1][$dx - 1] == $type) {
-                            $dx -= 1;
-                            $dy -= 1;
+                            $counter += 1;
+                            $dx = $j - 1;
+                            $dy = $i -1;
                         } else break;
-                        if($counter == 4)
-                            return TRUE;
+
+                        if($counter == 4) {
+                            $this->setWinArray($Matrix, $type, $j, "NW");
+                            return true;
+                        }
                     }
                     $counter = 0;
-                    $dx = $j - 1;
-                    $dy = $i + 1;
+                    $dx = $j;
+                    $dy = $i;
 
                     //bottom left
-                    while($Matrix[$dy][$dx] == $type && $dx >= 0 && $dx < 7 && $dy >= 0 && $dy < 6) {
-                        $counter += 1;
+                    while($Matrix[$dy][$dx] == $type) {
                         if($Matrix[$dy + 1][$dx - 1] == $type) {
-                            $dx -= 1;
-                            $dy += 1;
+                            $counter += 1;
+                            $dx = $j - 1;
+                            $dy = $i + 1;
                         }else break;
-                        if($counter == 4)
-                            return TRUE;
+
+                        if($counter == 4) {
+                            $this->setWinArray($Matrix, $type, $j, "SW");
+                            return true;
+                        }
+
                     }
                     $counter = 0;
-                    $dx = $j + 1;
-                    $dy = $i + 1;
+                    $dx = $j;
+                    $dy = $i;
 
                     //bottom right
-                    while($Matrix[$dy][$dx] == $type && $dx >= 0 && $dx < 7 && $dy >= 0 && $dy < 6) {
-                        $counter += 1;
+                    while($Matrix[$dy][$dx] == $type) {
                         if($Matrix[$dy + 1][$dx + 1] == $type) {
-                            $dx += 1;
-                            $dy += 1;
+                            $counter += 1;
+                            $dx = $j + 1;
+                            $dy = $i + 1;
                         } else break;
-                        if($counter == 4)
-                            return TRUE;
+
+                        if($counter == 4) {
+                            $this->setWinArray($Matrix, $type, $j, "SE");
+                            return true;
+                        }
                     }
                 }
             }
             return FALSE;
         }
         
-        function setWinArray($x, $y, $direction){
-            switch ($direction) {
-                case "NW":
-                    for ($i = 3; $i >= 0; $i--) {
-                        $win[$i * 2] = $x;
-                        $win[$i * 2 + 1] = $y;
-                        $y--;
-                        $x++;
+        function setWinArray($array, $index, $orientation){
+            $win = array(0, 0, 0, 0, 0, 0, 0, 0);
+
+            switch($orientation) {
+                case "E": {
+                    for($j = 0; $j < 3; $j++) {
+                        $win[$j] = $array[$j];
+                        $win[$j + 1] = $index;
                     }
                     break;
-                case "W":
-                    for ($i = 3; $i >= 0; $i--) {
-                        $win[$i * 2] = $x;
-                        $win[$i * 2 + 1] = $y;
-                        $x++;
+                } case "S": {
+                    for($j = 0; $j < 3; $j++) {
+                        $win[$j] = $index;
+                        $win[$j + 1] = $array[$j];
                     }
                     break;
-                case "SW":
-                    for ($i = 3; $i >= 0; $i--) {
-                        $win[$i * 2] = $x;
-                        $win[$i * 2 + 1] = $y;
-                        $x++;
-                        $y++;
-                    }
-                    break;
-                case "S":
-                    for ($i = 3; $i >= 0; $i--) {
-                        $win[$i * 2] = $x;
-                        $win[$i * 2 + 1] = $y;
-                        $y++;
-                    }
-                    break;
-                default:
-                    return;
+                }
             }
         }
 

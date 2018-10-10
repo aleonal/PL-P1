@@ -4,8 +4,7 @@
 require_once '../play/Move.php';
 
 function smartStrategy(&$board){
-    $tempMatrix = $board;
-    $tempMove = new Move();
+    $tempMove = NULL;
     for ($i = 0; $tempMove->isWin != FALSE; $i ++) {
         $tempMove = new Move($i, $board);
     }

@@ -31,6 +31,8 @@ if($_GET["move"] == "") {
     echo json_encode(new invalidResponse("Slot ".$_GET["move"]." is invalid."));
     exit;
 }
+
+//instantiates game from file, marks player move in game instance, and writes to file
 $game = Game::fromJsonString(readFromFile($_GET["pid"]));
 $playerMove = new Move($_GET["move"], $game->board);
 writeToFile($_GET["pid"], json_encode($game));
@@ -41,7 +43,7 @@ if($playerMove->isWin || $playerMove->isDraw) {
     exit;
 }
 
-//calculates computer move
+//calculates computer move and writes it to file
 if($game->strategy == "smart")
     $computerMove = smartStrategy($game->board);
 else $computerMove = randomStrategy($game->board);
